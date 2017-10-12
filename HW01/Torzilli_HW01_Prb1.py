@@ -53,9 +53,8 @@ for xi in xSet2:
 yInt2 = massInterpolate(xSet2,ySet2, xInt)
     
 #Plot
-mainPlot,(plot1,plot2) = plt.subplots(2,sharex=True, sharey= True)
-plot1.plot(xSet,ySet, 'o', xInt,yInt, '-', color='r')
-plot2.plot(xSet2,ySet2, 'o', xInt, yInt2, '-', color = 'b')
+plt.plot(xSet,ySet, 'o', xInt,yInt, '-', color='r')
+plt.plot(xSet2,ySet2, 'o', xInt, yInt2, '-', color = 'b')
 plt.xlabel('X -Values')
 plt.ylabel('Y- Values')
 plt.title('Lagrange Polynomial Interpolation')
