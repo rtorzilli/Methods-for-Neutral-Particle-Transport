@@ -25,12 +25,13 @@ for xi in xSet:
 # Interpolation function using Lagrange Polynomials
 def interpolateY (x,y, xInt):
     Li = 1
+    yInterpolated = 0
     for i in range(len(x)):
         for j in range(len(x)):
             if (i != j):
                 processed = (xInt-x[j])/(x[i]-x[j])
                 Li = Li * processed
-        yInterpolated = Li * y[i]
+        yInterpolated = yInterpolated+ Li * y[i]
         Li = 1
     return yInterpolated
 
