@@ -7,7 +7,7 @@ Created on Tue Oct 10 07:36:05 2017
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import interpolate
-
+#Part A
 #Given
 x= [1,2,3,4,5,6,7]
 y = [1,4,10,12,5,4,0]
