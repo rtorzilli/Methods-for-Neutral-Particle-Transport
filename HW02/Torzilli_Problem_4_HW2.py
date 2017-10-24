@@ -5,6 +5,7 @@ Created on Sun Oct 22 13:05:19 2017
 @author: Robert
 """
 import numpy as np
+import matplotlib.pyplot as plt
 # Write a function for Composite Simpson's 3/8 rule to compute the given 
 # integral
 
@@ -49,3 +50,28 @@ integrateI = compositeSimpson3_8(2,4,3,givenIntegral)
 print(integrateI)
 integrateI = compositeSimpson3_8(2,4,6,givenIntegral)
 print(integrateI)
+# Experimentally dermine the rate of convergence as a function of h
+# =============================================================================
+# Recall that h will only change based on the subintervals we specify
+# Note that the norm used to calculate the rate of convergence has not
+# been specified. We will choose the infinite norm
+# =============================================================================
+I = []
+u = []
+k = []
+#From part A
+xReal = np.sqrt(15)-np.sqrt(3)
+for n in range(3,1000,3):
+    I.append(compositeSimpson3_8(2,4,n,givenIntegral))
+for i in range(1,len(I)):
+    u.append((np.linalg.norm([I[i]-xReal],np.inf))/(np.linalg.norm([I[i-1]-xReal],np.inf)))
+    k.append(i)
+plt.plot(k,u,'-ro')
+plt.xlabel("Iteration")
+plt.ylabel("Rate of Convergence")
+plt.title("Rate of Convergence as Iteration goes to 333")
+
+# =============================================================================
+# As we can see the rate of convergence (u) goes to one this also indicates that 
+# the convergence is sublinear
+# =============================================================================

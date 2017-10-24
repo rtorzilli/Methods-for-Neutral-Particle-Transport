@@ -33,9 +33,12 @@ plotLog.set_xlabel("Number of Mesh Cells")
 plotLog.set_ylabel("Relative Error")
 plotLog.grid()
 
-# What is the functional relationship between error and 
-# mesh spacing / number of cells?
+# What is the functional relationship between error and the
+# mesh spacing  ad the error and the number of cells?
 # =============================================================================
 # We can see that as mesh spacing gets larger our error goes up and as the number
-# of mesh cells increase the error goes down
+# of mesh cells increase the error goes down.
+# 
+# So we can state that mesh spacing is related to error and the number of mesh
+# cells is inversly related to error
 # =============================================================================

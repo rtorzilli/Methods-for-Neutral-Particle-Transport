@@ -35,7 +35,9 @@ A_matrix[n-1,n-2]=-1
 A_matrix[n-1,n-1]=2
 # B]
 # What is the condition number of A?
-
+# Since no norm value was specified I am leaving it at the default 2-norm
+conditionA = np.linalg.cond(A_matrix)
+print("Condition Number of A: " + str(conditionA))
 
 # C]
 # Explicitly solve the X values using inverse multiplication
