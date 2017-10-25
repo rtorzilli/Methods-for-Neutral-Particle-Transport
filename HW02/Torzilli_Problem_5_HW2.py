@@ -43,9 +43,10 @@ print("Condition Number of A: " + str(conditionA))
 # Explicitly solve the X values using inverse multiplication
 inverseA = np.linalg.inv(A_matrix)
 identityProof = (np.matmul(inverseA,A_matrix))
+solutionExplicit = np.matmul(inverseA,bVector)
+
 # D]
 # Solve the X values using scipy's solve function
-solutionExplicit = np.matmul(inverseA,bVector)
 solutionScipy = solve(A_matrix,bVector)
 
 # Plot the "explicit" and scipy's numerical solutions on the same plot
