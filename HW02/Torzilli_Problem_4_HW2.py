@@ -47,9 +47,9 @@ def compositeSimpson3_8(botBound, topBound, n, function):
               " and at least 6")
     return I
 integrateI = compositeSimpson3_8(2,4,3,givenIntegral)
-print(integrateI)
+print("Integration Result N=3: "+str(integrateI))
 integrateI = compositeSimpson3_8(2,4,6,givenIntegral)
-print(integrateI)
+print("Integration Result N=6: "+str(integrateI))
 # Experimentally dermine the rate of convergence as a function of h
 # =============================================================================
 # Recall that h will only change based on the subintervals we specify
