@@ -22,15 +22,15 @@ c Axial limits
 
 c ***** Data *******
 c Material 1
-m1 8016.73c 2.0
-   92235.73c 0.05
-   92238.73c 0.95
+m1    8016.73c 2.0
+      92235.73c 0.05
+      92238.73c 0.95
 c Material 4
-m4 1001.71c 2
-   8016.71c 1
-   mt4 lwtr.04t
+m4    1001.71c 2
+      8016.71c 1
+    mt4 lwtr.04t
 c Material 3
-m3 40000.58c 1.
+m3    40000.58c 1
 c ****** Tallies *******
 fc4 Tally 4
 f4:n 1 3 4

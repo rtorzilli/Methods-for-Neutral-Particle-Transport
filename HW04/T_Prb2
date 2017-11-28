@@ -1,0 +1,364 @@
+          Code Name & Version = MCNP6, 1.0
+  
+     _/      _/        _/_/_/       _/      _/       _/_/_/         _/_/_/
+    _/_/  _/_/      _/             _/_/    _/       _/    _/     _/       
+   _/  _/  _/      _/             _/  _/  _/       _/_/_/       _/_/_/    
+  _/      _/      _/             _/    _/_/       _/           _/    _/   
+ _/      _/        _/_/_/       _/      _/       _/             _/_/      
+  
+  +---------------------------------------------------------------------+
+  | Copyright 2008. Los Alamos National Security, LLC.  All rights      |
+  | reserved.                                                           |
+  |   This material was produced under U.S. Government contract         |
+  | DE-AC52-06NA25396 for Los Alamos National Laboratory, which is      |
+  | operated by Los Alamos National Security, LLC, for the U.S.         |
+  | Department of Energy. The Government is granted for itself and      |
+  | others acting on its behalf a paid-up, nonexclusive, irrevocable    |
+  | worldwide license in this material to reproduce, prepare derivative |
+  | works, and perform publicly and display publicly. Beginning five    |
+  | (5) years after 2008, subject to additional five-year worldwide     |
+  | renewals, the Government is granted for itself and others acting on |
+  | its behalf a paid-up, nonexclusive, irrevocable worldwide license   |
+  | in this material to reproduce, prepare derivative works, distribute |
+  | copies to the public, perform publicly and display publicly, and to |
+  | permit others to do so. NEITHER THE UNITED STATES NOR THE UNITED    |
+  | STATES DEPARTMENT OF ENERGY, NOR LOS ALAMOS NATIONAL SECURITY, LLC, |
+  | NOR ANY OF THEIR EMPLOYEES, MAKES ANY WARRANTY, EXPRESS OR IMPLIED, |
+  | OR ASSUMES ANY LEGAL LIABILITY OR RESPONSIBILITY FOR THE ACCURACY,  |
+  | COMPLETENESS, OR USEFULNESS OF ANY INFORMATION, APPARATUS, PRODUCT, |
+  | OR PROCESS DISCLOSED, OR REPRESENTS THAT ITS USE WOULD NOT INFRINGE |
+  | PRIVATELY OWNED RIGHTS.                                             |
+  +---------------------------------------------------------------------+
+  
+1mcnp     version 6     ld=05/08/13                     11/27/17 21:10:38 
+ *************************************************************************                 probid =  11/27/17 21:10:38 
+ i=Torzilli_prb2.i o=T_Prb2                                                      
+
+ 
+  warning.  Physics models disabled.
+         1-       PWR Single Pin                                                                  
+         2-       c ******* Cell *******                                                          
+         3-       1 1 -10.41 -1 -10 20 imp:n=1                                                    
+         4-       2 0 1 -2 -10 20 imp:n=1                                                         
+         5-       3 3 -6.55 2 -3 -10 20 imp:n=1                                                   
+         6-       4 4 -0.7 3 -5 6 -7 8 -10 20 imp:n=1                                             
+         7-       5 0 5:-6:7:-8:10:-20 imp:n=0                                                    
+         8-                                                                                       
+         9-       c ****** Surfaces *******                                                       
+        10-       c Rods dimensions                                                               
+        11-       1 cz 0.41                                                                       
+        12-       2 cz 0.42                                                                       
+        13-       3 cz 0.48                                                                       
+        14-       c Basic lattice cell                                                            
+        15-       *5 px 0.63                                                                      
+        16-       *6 px -0.63                                                                     
+        17-       *7 py 0.63                                                                      
+        18-       *8 py -0.63                                                                     
+        19-       c Axial limits                                                                  
+        20-       *10 pz 200.0                                                                    
+        21-       *20 pz -200.0                                                                   
+        22-                                                                                       
+        23-       c ***** Data *******                                                            
+        24-       c Material 1                                                                    
+        25-       m1    8016.73c 2.0                                                              
+        26-             92235.73c 0.05                                                            
+        27-             92238.73c 0.95                                                            
+        28-       c Material 4                                                                    
+        29-       m4    1001.71c 2                                                                
+        30-             8016.71c 1                                                                
+        31-           mt4 lwtr.04t                                                                
+        32-       c Material 3                                                                    
+        33-       m3    40000.58c 1                                                               
+        34-       c ****** Tallies *******                                                        
+        35-       fc4 Tally 4                                                                     
+        36-       f4:n 1 3 4                                                                      
+        37-       e4:n 1e-6 1. 20.                                                                
+        38-       fc14 Tally 14                                                                   
+        39-       f14:n 1                                                                         
+        40-       fm14 (1 1 (-2) (-6))                                                            
+        41-       c *************                                                                 
+        42-       kcode 1000 1.00 50 250                                                          
+        43-       ksrc 0. 0. 0.                                                                   
+        44-       print                                                                           
+        45-       mode n                                                                          
+ 
+  comment.  total fission nubar data are being used.
+1     initial source from ksrc card.                                                                    print table 90
+
+ original number of points                             1
+    points not in any cell                       0
+    points in cells of zero importance           0
+    points in void cells                         0
+    points in ambiguous cells                    0
+ total points rejected                                 0
+ points remaining                                      1
+ points after expansion or contraction              1000
+ nominal source size                                1000
+
+ initial guess for k(eff.)                      1.000000
+
+ cycles to skip before tallying                       50
+
+ number of keff cycles that can be stored           2500
+
+
+1tally        4                                                                                         print table 30
++                                   Tally 4                                                                    
+           tally type 4    track length estimate of particle flux.                             
+           particle(s): neutrons 
+ cells     1 3 4                                                                                                                       
+
+ energy bins
+      0.00000E+00  to  1.00000E-06 MeV   
+      1.00000E-06  to  1.00000E+00 MeV   
+      1.00000E+00  to  2.00000E+01 MeV   
+      total bin
+
+1tally       14                                                                                         print table 30
++                                   Tally 14                                                                   
+           tally type 4    track length estimate of particle flux.                             
+           particle(s): neutrons 
+ cells     1                                                                                                                           
+
+ multiplier bins
+ att  constant    material   reactions or material-rho*x pairs
+     1.00000E+00        1         -2
+     1.00000E+00        1         -6
+ 
+  warning.    8016.71c and   8016.73c are both called for.
+1material composition                                                                                   print table 40
+
+ the sum of the fractions of material        1 was 3.000000E+00
+
+ the sum of the fractions of material        4 was 3.000000E+00
+
+ material
+  number     component nuclide, atom fraction
+
+        1            8016, 6.66667E-01      92235, 1.66667E-02      92238, 3.16667E-01
+        4            1001, 6.66667E-01       8016, 3.33333E-01
+ associated thermal s(a,b) data sets:    lwtr.04t                                                                        
+        3           40000, 1.00000E+00
+
+
+
+
+
+ material
+  number     component nuclide, mass fraction
+
+        1            8016, 1.18529E-01      92235, 4.35443E-02      92238, 8.37927E-01
+        4            1001, 1.11915E-01       8016, 8.88085E-01
+        3           40000, 1.00000E+00
+ 
+  warning.    2 materials had unnormalized fractions. print table 40.
+1cell volumes and masses                                                                                print table 50
+
+              cell     atom          gram         input       calculated                            reason volume
+                      density       density       volume        volume         mass       pieces    not calculated
+
+        1        1  6.96833E-02   1.04100E+01   0.00000E+00   2.11241E+02   2.19902E+03      1                      
+        2        2  0.00000E+00   0.00000E+00   0.00000E+00   1.04301E+01   0.00000E+00      1                      
+        3        3  4.32392E-02   6.55000E+00   0.00000E+00   6.78584E+01   4.44473E+02      1                      
+        4        4  7.02160E-02   7.00000E-01   0.00000E+00   0.00000E+00   0.00000E+00      0      asymmetric      
+        5        5  0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00   0.00000E+00      0      infinite        
+1surface areas                                                                                          print table 50
+
+           surface      input      calculated    reason area
+                        area          area       not calculated
+
+        1        1      0.00000E+00   1.03044E+03                   
+        2        2      0.00000E+00   1.05558E+03                   
+        3        3      0.00000E+00   1.20637E+03                   
+        4        5      0.00000E+00   5.04000E+02                   
+        5        6      0.00000E+00   5.04000E+02                   
+        6        7      0.00000E+00   5.04000E+02                   
+        7        8      0.00000E+00   5.04000E+02                   
+        8       10      0.00000E+00   1.58760E+00                   
+        9       20      0.00000E+00   1.58760E+00                   
+
+ tally        4 lacks    1 segment volume(s) or area(s).
+ 
+  fatal error.     1 tally volumes or areas were not input nor calculated.
+1cells                                                                                                  print table 60
+
+                               atom        gram                                            neutron                                     
+              cell      mat   density     density     volume       mass            pieces importance                                   
+
+        1        1        1  6.96833E-02 1.04100E+01 2.11241E+02 2.19902E+03           1  1.0000E+00                                   
+        2        2        0  0.00000E+00 0.00000E+00 1.04301E+01 0.00000E+00           1  1.0000E+00                                   
+        3        3        3  4.32392E-02 6.55000E+00 6.78584E+01 4.44473E+02           1  1.0000E+00                                   
+        4        4        4s 7.02160E-02 7.00000E-01 0.00000E+00 0.00000E+00           0  1.0000E+00                                   
+        5        5        0  0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00           0  0.0000E+00                                   
+
+ total                                               2.89529E+02 2.64349E+03
+1surfaces                                                                                               print table 70
+
+           surface        trans  type   surface coefficients
+
+        1        1                cz    4.1000000E-01
+        2        2                cz    4.2000000E-01
+        3        3                cz    4.8000000E-01
+        4        5   refl.        px    6.3000000E-01
+        5        6   refl.        px   -6.3000000E-01
+        6        7   refl.        py    6.3000000E-01
+        7        8   refl.        py   -6.3000000E-01
+        8       10   refl.        pz    2.0000000E+02
+        9       20   refl.        pz   -2.0000000E+02
+1  cell temperatures in mev for the free-gas thermal neutron treatment.                                 print table 72
+
+   all non-zero importance cells with materials have a temperature for thermal neutrons of 2.5300E-08 mev.
+
+ ***************************************************
+ * Random Number Generator  =                    1 *
+ * Random Number Seed       =       19073486328125 *
+ * Random Number Multiplier =       19073486328125 *
+ * Random Number Adder      =                    0 *
+ * Random Number Bits Used  =                   48 *
+ * Random Number Stride     =               152917 *
+ ***************************************************
+
+
+         3 warning messages so far.
+
+          1 fatal error so far.
+1physical constants                                                                                     print table 98
+
+
+       name                    value     description
+
+ huge_float      1.0000000000000E+36     infinity
+        pie      3.1415926535898E+00     pi
+      euler      5.7721566490153E-01     euler constant
+     avogad      6.0220434469282E+23     avogadro number (molecules/mole)
+      aneut      1.0086649670000E+00     neutron mass (amu)
+      avgdn      5.9703109000000E-01     avogadro number/neutron mass (1.e-24*molecules/mole/amu)
+      slite      2.9979250000000E+02     speed of light (cm/shake)
+     planck      4.1357320000000E-13     planck constant (mev shake)
+      fscon      1.3703930000000E+02     inverse fine structure constant h*c/(2*pi*e**2)
+
+ particle masses:   ipt       mass (mev)           particle      anti-particle
+
+                      1    9.3958000000000E+02     neutron        5   Aneutron
+                      3    5.1100800000000E-01     electron       8   positron
+                      4    1.0565835700000E+02     mu_minus      16   mu_plus 
+                      9    9.3827199800000E+02     proton        19   Aproton 
+                     10    1.1156830000000E+03     lambda0       25   Alambda0
+                     11    1.1893700000000E+03     sigma+        26   Asigma+ 
+                     12    1.1974490000000E+03     sigma-        27   Asigma- 
+                     13    1.3148300000000E+03     xi0           28   Axi0    
+                     14    1.3213100000000E+03     xi_minus      29   xi_plus 
+                     15    1.6724500000000E+03     omega-        30   Aomega- 
+                     20    1.3957018000000E+02     pi_plus       35   pi_minus
+                     21    1.3497660000000E+02     pi_zero 
+                     22    4.9367700000000E+02     k_plus        36   k_minus 
+                     23    4.9767200000000E+02     k0_short
+                     24    4.9767200000000E+02     k0_long 
+                     31    1.8756127600000E+03     deuteron
+                     32    2.8089208600000E+03     triton  
+                     33    2.8083913200000E+03     helion  
+                     34    3.7273790400000E+03     alpha   
+
+
+ fission q-values:     nuclide    q(mev)   nuclide    q(mev)
+                         90232    171.91     91233    175.57
+                         92233    180.84     92234    179.45
+                         92235    180.88     92236    179.50
+                         92237    180.40     92238    181.31
+                         92239    180.40     92240    180.40
+                         93237    183.67     94238    186.65
+                         94239    189.44     94240    186.36
+                         94241    188.99     94242    185.98
+                         94243    187.48     95241    190.83
+                         95242    190.54     95243    190.25
+                         96242    190.49     96244    190.49
+                         other    180.00
+
+ parallel options:
+
+     omp
+
+     default datapath: C:\Users\Robert\Documents\1_Software_Tools\MCNP_6.1_Windows\MCNP_DATA           
+                       C:\cygwin\MCNP_DATA                                                             
+
+ the following conditional compilation symbols were defined:
+
+     CEM
+     CEM_M6
+     CINDER
+     CVF
+     DEC
+     INTEL
+     LAQGSM
+     LLNL_FISS
+     OMP
+     PLOT
+     XLIB
+1cross-section tables                                                                                   print table 100
+     XSDIR used: C:\Users\Robert\Documents\1_Software_Tools\MCNP_6.1_Windows\MCNP_DATA/xsdir_mcnp6.1
+
+     table    length
+
+                        tables from file xdata/endf70a                                                   
+
+ particle-production data for deuterons being expunged from   1001.71c
+   1001.71c    3652   1-H -  1 at 600K   from endf/b-vii.0 njoy99.248                             mat 125      03/27/08
+                     temperature = 5.1704E-08 adjusted to 2.5300E-08
+ particle-production data for protons   being expunged from   8016.71c
+ particle-production data for deuterons being expunged from   8016.71c
+ particle-production data for tritons   being expunged from   8016.71c
+ particle-production data for alphas    being expunged from   8016.71c
+   8016.71c  170986   8-O - 16 at 600K   from endf/b-vii.0 njoy99.248                             mat 825      08/25/07
+                     temperature = 5.1704E-08 adjusted to 2.5300E-08
+ particle-production data for protons   being expunged from   8016.73c
+ particle-production data for deuterons being expunged from   8016.73c
+ particle-production data for tritons   being expunged from   8016.73c
+ particle-production data for alphas    being expunged from   8016.73c
+   8016.73c  171038   8-O - 16 at 1200K  from endf/b-vii.0 njoy99.248                             mat 825      08/25/07
+                     temperature = 1.0341E-07 adjusted to 2.5300E-08
+
+                        tables from file xdata/misc5xs                                                   
+
+  40000.58c   39640                                                                                                    
+                     temperature = 5.0600E-08 adjusted to 2.5300E-08
+
+                        tables from file xdata/endf70j                                                   
+
+  92235.73c  491125  92-U -235 at 1200K  from endf/b-vii.0 njoy99.248   total nu                  mat9228      08/25/07
+                     probability tables used from 2.2500E-03 to 2.5000E-02 mev.
+                     temperature = 1.0341E-07 adjusted to 2.5300E-08
+  92238.73c 1021732  92-U -238 at 1200K  from endf/b-vii.0 njoy99.248   total nu                  mat9237      08/25/07
+                     probability tables used from 2.0000E-02 to 1.4903E-01 mev.
+                     temperature = 1.0341E-07 adjusted to 2.5300E-08
+
+                        tables from file xdata/tmccs                                                     
+
+   lwtr.04t   10193  hydrogen in light water at 600 degrees kelvin                           1001     0     010/22/85  
+
+  total     1908366
+ 
+  comment.     6 cross sections modified by free gas thermal treatment.
+
+1particles and energy limits                                                                            print table 101
+
+                         particle      maximum       smallest      largest       always        always
+                         cutoff        particle      table         table         use table     use model
+   particle type         energy        energy        maximum       maximum       below         above
+
+    1  n    neutron     0.0000E+00    1.0000E+36    2.0000E+01    1.5000E+02    1.0000E+36    1.0000E+36
+ 
+1assignment of s(a,b) data to nuclides.                                                                 print table 102
+
+       mat        nuclide         s(a,b)
+         4       1001.71c       lwtr.04t
+
+         3 warning messages so far.
+
+          1 fatal error so far.
+
+
+ run terminated because of fatal errors.
+
+ computer time =    0.06 minutes
+
+ mcnp     version 6     05/08/13                     11/27/17 21:10:42                     probid =  11/27/17 21:10:38 

@@ -1,0 +1,560 @@
+          Code Name & Version = MCNP6, 1.0
+  
+     _/      _/        _/_/_/       _/      _/       _/_/_/         _/_/_/
+    _/_/  _/_/      _/             _/_/    _/       _/    _/     _/       
+   _/  _/  _/      _/             _/  _/  _/       _/_/_/       _/_/_/    
+  _/      _/      _/             _/    _/_/       _/           _/    _/   
+ _/      _/        _/_/_/       _/      _/       _/             _/_/      
+  
+  +---------------------------------------------------------------------+
+  | Copyright 2008. Los Alamos National Security, LLC.  All rights      |
+  | reserved.                                                           |
+  |   This material was produced under U.S. Government contract         |
+  | DE-AC52-06NA25396 for Los Alamos National Laboratory, which is      |
+  | operated by Los Alamos National Security, LLC, for the U.S.         |
+  | Department of Energy. The Government is granted for itself and      |
+  | others acting on its behalf a paid-up, nonexclusive, irrevocable    |
+  | worldwide license in this material to reproduce, prepare derivative |
+  | works, and perform publicly and display publicly. Beginning five    |
+  | (5) years after 2008, subject to additional five-year worldwide     |
+  | renewals, the Government is granted for itself and others acting on |
+  | its behalf a paid-up, nonexclusive, irrevocable worldwide license   |
+  | in this material to reproduce, prepare derivative works, distribute |
+  | copies to the public, perform publicly and display publicly, and to |
+  | permit others to do so. NEITHER THE UNITED STATES NOR THE UNITED    |
+  | STATES DEPARTMENT OF ENERGY, NOR LOS ALAMOS NATIONAL SECURITY, LLC, |
+  | NOR ANY OF THEIR EMPLOYEES, MAKES ANY WARRANTY, EXPRESS OR IMPLIED, |
+  | OR ASSUMES ANY LEGAL LIABILITY OR RESPONSIBILITY FOR THE ACCURACY,  |
+  | COMPLETENESS, OR USEFULNESS OF ANY INFORMATION, APPARATUS, PRODUCT, |
+  | OR PROCESS DISCLOSED, OR REPRESENTS THAT ITS USE WOULD NOT INFRINGE |
+  | PRIVATELY OWNED RIGHTS.                                             |
+  +---------------------------------------------------------------------+
+  
+1mcnp     version 6     ld=05/08/13                     11/27/17 21:22:35 
+ *************************************************************************                 probid =  11/27/17 21:22:35 
+ i=city.i o=devestatedCity                                                       
+
+ 
+  warning.  Physics models disabled.
+         1-       This models a simple NW neutron burst and models a simple city-scape.           
+         2-       c                                                                               
+         3-       c Simple NW det scenario.  A NW is set off on the edge of the city.  To start, l
+         4-       c a scale model.  The key factors for the model:                                
+         5-       c                                                                               
+         6-       c 1) Model three "city blocks" of long apartment buldings.  The buildings are .3
+         7-       c    .3m wide, and 1.0 m long separated by 0.15 m of air. The walls are .03 m th
+         8-       c 2) The flux is tallied inside of a car modeled as a 0.1 wide, 0.15 m tall, and
+         9-       c    aluminum box with 0.0025 m thick walls. The car is located on the far side 
+        10-       c    block from the source.                                                     
+        11-       c 3) Add a volume flux tally to the inside of the car.                          
+        12-       c 4) The source is modeled as a point fission source (Watt spectrum) from a HEU 
+        13-       c Centered 1 m away from the far buliding from car                              
+        14-       c                                                                               
+        15-       c ******************************************************************************
+        16-       c  Cell Cards ID Mat Den Surfaces                                               
+        17-       c ******************************************************************************
+        18-       c create a kill zone                                                            
+        19-       9 0 99 imp:n=0                                                                  
+        20-       c Buildings                                                                     
+        21-       1  1 -2.3       11 -1 imp:n=1 $ Conrete wall for Bldg                           
+        22-       11 5 -2.2991415 -11    imp:n=1 $ Air Gap in Blg                                 
+        23-       2  1 -2.3       22 -2 imp:n=1 $ Conrete wall for Bldg                           
+        24-       22 5 -2.2991415 -22    imp:n=1 $ Air Gap in Blg                                 
+        25-       3  1 -2.3       33 -3 imp:n=1 $ Conrete wall for Bldg                           
+        26-       33 5 -2.2991415 -33    imp:n=1 $ Air Gap in Blg                                 
+        27-       c Cars                                                                          
+        28-       5  3 -2.6989  -5 55 imp:n=1                                                     
+        29-       55 2 -.001205 -55   imp:n=1                                                     
+        30-       6  3 -2.6989  -6 66 imp:n=1                                                     
+        31-       66 2 -.001205 -66   imp:n=1                                                     
+        32-       7  3 -2.6989  -7 77 imp:n=1                                                     
+        33-       77 2 -.001205 -77   imp:n=1                                                     
+        34-       c Outside                                                                       
+        35-       99 2 -.001205 -99 1 3 2 5 6 7 88 imp:n=1                                        
+        36-       88 4 -2.5784 -88 -99 1 3 2 5 6 7 imp:n=1                                        
+        37-                                                                                       
+        38-       c ******************************************************************************
+        39-       c Surfaces                                                                      
+        40-       c ******************************************************************************
+        41-       c Buildings                                                                     
+        42-       1  BOX -450 0 0      300 0 0   0 1000 0  0 0 300                                
+        43-       11 BOX -420 30 1e-6   240 0 0   0 940 0   0 0 270 $ .03 meter thick wall        
+        44-       2  BOX  450 0 0      300 0 0   0 100 0   0 0 300                                
+        45-       22 BOX  480 30 1e-6  240 0 0   0 940 0   0 0 270 $ .03 meter thick wall         
+        46-       3  BOX  0 0 0        300 0 0   0 1000 0  0 0 300                                
+        47-       33 BOX  30 30 1e-6     240 0 0   0 940 0   0 0 270 $ .03 meter thick wall       
+        48-       c Universe                                                                      
+        49-       99 BOX -600 -100 -100   1500 0 0   0 1200 0  0 0 900                            
+        50-       88 PZ 0                                                                         
+        51-       c Car                                                                           
+        52-       5  BOX 775    500 1e-6    100 0 0  0 250 0   0 0 150                            
+        53-       55 BOX 777.5  502.5 2.5  95 0 0   0 245 0   0 0 145                             
+        54-       6  BOX 325    500 1e-6    100 0 0  0 250 0   0 0 150                            
+        55-       66 BOX 327.5  502.5 2.5  95 0 0   0 245 0   0 0 145                             
+        56-       7  BOX -125   500 1e-6    100 0 0  0 250 0   0 0 150                            
+        57-       77 BOX -122.5 502.5 2.5  95 0 0   0 245 0   0 0 145                             
+        58-                                                                                       
+        59-       c ******************************************************************************
+        60-       c Data Cards                                                                    
+        61-       c ******************************************************************************
+        62-       c Concrete default room temperature density=2.30 g/cc                           
+        63-       M1    1001 -0.0221                                                              
+        64-             6012 -0.002484                                                            
+        65-             8016  -0.57493                                                            
+        66-             11023 -0.015208                                                           
+        67-             12000 -0.001266                                                           
+        68-             13027 -0.019953                                                           
+        69-             14000 -0.304627                                                           
+        70-             19000 -0.010045                                                           
+        71-             20000 -0.042951                                                           
+        72-             26000 -0.006435                                                           
+        73-       c Air Temp=Default Rm Density = 0.001205 g/cc                                   
+        74-       M2    6000 -0.000124                                                            
+        75-             7014 -0.755268                                                            
+        76-             8016 -0.231781                                                            
+        77-             18000 -0.012827                                                           
+        78-       c Aluminum Density=2.6989 g/cc                                                  
+        79-       M3    13027 -1.000000                                                           
+        80-       c ASphalt Pavement density=2.578400 g/cc                                        
+        81-       M4    1001 -.007781                                                             
+        82-             6000 -.076175                                                             
+        83-             7014 -.000363                                                             
+        84-             8016 -.459103                                                             
+        85-             11023 -.011659                                                            
+        86-             12000 -.021757                                                            
+        87-             13027 -.051009                                                            
+        88-             14000 -.231474                                                            
+        89-             16000 -.002804                                                            
+        90-             19000 -.017508                                                            
+        91-             20000 -.084471                                                            
+        92-             22000 -.003403                                                            
+        93-             23000 -.000024                                                            
+        94-             25055 -.000632                                                            
+        95-             26000 -.031375                                                            
+        96-             28000 -.000002                                                            
+        97-             82000 -.001179                                                            
+        98-       c Bulding Stuffing density= 2.299142                                            
+        99-       M5    6000 -0.0000372  $ Air.3                                                  
+       100-             7014    -0.2265804                                                        
+       101-             8016    -0.0695343                                                        
+       102-             18000   -0.0038481                                                        
+       103-       c   Aluminum    .2                                                              
+       104-             13027   -0.2                                                              
+       105-       c   Steel Carbon    .2                                                          
+       106-             6012    -0.001                                                            
+       107-             26000   -0.0199                                                           
+       108-       c   Wood    .3                                                                  
+       109-             1001    -0.0173667                                                        
+       110-             6012    -0.1448001                                                        
+       111-             8016    -0.1378332                                                        
+       112-       c ***** Tallies *****                                                           
+       113-       c Tally flux inside car on far end of "bomb"                                    
+       114-       f4:n 55                                                                         
+       115-       c Tally fluc inside the cars taht are located between bldgs                     
+       116-       f14:n 66 77                                                                     
+       117-       c **** Source ****                                                              
+       118-       c Using 14 MeV incident for U-235 since it's a bomb                             
+       119-       SDEF POS -451 500 150 PAR=1 ERG=d1                                              
+       120-       SP1 -3 1.028 2.084                                                              
+ 
+  comment.  total nubar used if fissionable isotopes are present.
+
+ surface        1.3 and surface        3.3 are the same.        3.3 will be deleted.
+
+ surface        1.4 and surface        2.4 are the same.        2.4 will be deleted.
+
+ surface        1.4 and surface        3.4 are the same.        3.4 will be deleted.
+
+ surface        1.5 and surface        2.5 are the same.        2.5 will be deleted.
+
+ surface        1.5 and surface        3.5 are the same.        3.5 will be deleted.
+
+ surface        1.6 and surface        2.6 are the same.        2.6 will be deleted.
+
+ surface        1.6 and surface        3.6 are the same.        3.6 will be deleted.
+
+ surface        1.6 and surface       88   are the same.       88   will be deleted.
+
+ surface       11.3 and surface       22.3 are the same.       22.3 will be deleted.
+
+ surface       11.3 and surface       33.3 are the same.       33.3 will be deleted.
+
+ surface       11.4 and surface       22.4 are the same.       22.4 will be deleted.
+
+ surface       11.4 and surface       33.4 are the same.       33.4 will be deleted.
+
+ surface       11.5 and surface       22.5 are the same.       22.5 will be deleted.
+
+ surface       11.5 and surface       33.5 are the same.       33.5 will be deleted.
+
+ surface       11.6 and surface       22.6 are the same.       22.6 will be deleted.
+
+ surface       11.6 and surface       33.6 are the same.       33.6 will be deleted.
+
+ surface       11.6 and surface        5.6 are the same.        5.6 will be deleted.
+
+ surface       11.6 and surface        6.6 are the same.        6.6 will be deleted.
+
+ surface       11.6 and surface        7.6 are the same.        7.6 will be deleted.
+
+ surface        5.3 and surface        6.3 are the same.        6.3 will be deleted.
+
+ surface        5.3 and surface        7.3 are the same.        7.3 will be deleted.
+
+ surface        5.4 and surface        6.4 are the same.        6.4 will be deleted.
+
+ surface        5.4 and surface        7.4 are the same.        7.4 will be deleted.
+
+ surface        5.5 and surface        6.5 are the same.        6.5 will be deleted.
+
+ surface        5.5 and surface        7.5 are the same.        7.5 will be deleted.
+
+ surface       55.3 and surface       66.3 are the same.       66.3 will be deleted.
+
+ surface       55.3 and surface       77.3 are the same.       77.3 will be deleted.
+
+ surface       55.4 and surface       66.4 are the same.       66.4 will be deleted.
+
+ surface       55.4 and surface       77.4 are the same.       77.4 will be deleted.
+
+ surface       55.5 and surface       66.5 are the same.       66.5 will be deleted.
+
+ surface       55.5 and surface       77.5 are the same.       77.5 will be deleted.
+
+ surface       55.6 and surface       66.6 are the same.       66.6 will be deleted.
+
+ surface       55.6 and surface       77.6 are the same.       77.6 will be deleted.
+ 
+  comment.          33 surfaces were deleted for being the same as others.
+ 
+  warning.    2 materials had unnormalized fractions. print table 40.
+1cells                                                                                                  print table 60
+
+                               atom        gram                                            neutron                                     
+              cell      mat   density     density     volume       mass            pieces importance                                   
+
+        1        9        0  0.00000E+00 0.00000E+00 0.00000E+00 0.00000E+00           0  0.0000E+00                                   
+        2        1        1  9.94804E-02 2.30000E+00 2.90880E+07 6.69024E+07           0  1.0000E+00                                   
+        3       11        5  1.11984E-01 2.29914E+00 6.09120E+07 1.40045E+08           0  1.0000E+00                                   
+        4        2        1  9.94804E-02 2.30000E+00 4.46400E+06 1.02672E+07           0  1.0000E+00                                   
+        5       22        5  1.11984E-01 2.29914E+00 6.09120E+07 1.40045E+08           0  1.0000E+00                                   
+        6        3        1  9.94804E-02 2.30000E+00 2.90880E+07 6.69024E+07           0  1.0000E+00                                   
+        7       33        5  1.11984E-01 2.29914E+00 6.09120E+07 1.40045E+08           0  1.0000E+00                                   
+        8        5        3  6.02371E-02 2.69890E+00 3.75125E+05 1.01242E+06           0  1.0000E+00                                   
+        9       55        2  4.98948E-05 1.20500E-03 3.37487E+06 4.06672E+03           0  1.0000E+00                                   
+       10        6        3  6.02371E-02 2.69890E+00 3.75125E+05 1.01242E+06           0  1.0000E+00                                   
+       11       66        2  4.98948E-05 1.20500E-03 3.37487E+06 4.06672E+03           0  1.0000E+00                                   
+       12        7        3  6.02371E-02 2.69890E+00 3.75125E+05 1.01242E+06           0  1.0000E+00                                   
+       13       77        2  4.98948E-05 1.20500E-03 3.37488E+06 4.06672E+03           0  1.0000E+00                                   
+       14       99        2  4.98948E-05 1.20500E-03 1.23975E+09 1.49390E+06           0  1.0000E+00                                   
+       15       88        4  8.94032E-02 2.57840E+00 1.80000E+08 4.64112E+08           0  1.0000E+00                                   
+
+ total                                               1.67638E+09 1.03286E+09
+
+    minimum source weight = 1.0000E+00    maximum source weight = 1.0000E+00
+
+ ***************************************************
+ * Random Number Generator  =                    1 *
+ * Random Number Seed       =       19073486328125 *
+ * Random Number Multiplier =       19073486328125 *
+ * Random Number Adder      =                    0 *
+ * Random Number Bits Used  =                   48 *
+ * Random Number Stride     =               152917 *
+ ***************************************************
+
+
+         2 warning messages so far.
+1cross-section tables                                                                                   print table 100
+     XSDIR used: C:\Users\Robert\Documents\1_Software_Tools\MCNP_6.1_Windows\MCNP_DATA/xsdir_mcnp6.1
+
+     table    length
+
+                        tables from file xdata/endf71x/H/1001.710nc                                      
+
+ particle-production data for deuterons being expunged from   1001.80c
+   1001.80c    3652  H1 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)          mat 125      12/17/12
+
+                        tables from file xdata/endf71x/C/6000.710nc                                      
+
+ particle-production data for protons   being expunged from   6000.80c
+ particle-production data for deuterons being expunged from   6000.80c
+ particle-production data for alphas    being expunged from   6000.80c
+   6000.80c   45022  C0 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)          mat 600      12/20/12
+
+                        tables from file xdata/rmccs                                                     
+
+   6012.50c   16126  njoy                                                                       (  1306)      79/07/31.
+  26000.55c   84136  njoy                                                                       ( 260)       10/21/82  
+  28000.50c   82267  njoy                                                                       (  1328)      79/06/21.
+  82000.50c   28695  njoy                                                                        ( 1382)     03/10/82  
+
+                        tables from file xdata/endf71x/N/7014.710nc                                      
+
+ particle-production data for protons   being expunged from   7014.80c
+ particle-production data for deuterons being expunged from   7014.80c
+ particle-production data for alphas    being expunged from   7014.80c
+   7014.80c   67470  N14 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)         mat 725      12/16/12
+
+                        tables from file xdata/endf71x/O/8016.710nc                                      
+
+ particle-production data for protons   being expunged from   8016.80c
+ particle-production data for deuterons being expunged from   8016.80c
+ particle-production data for tritons   being expunged from   8016.80c
+ particle-production data for alphas    being expunged from   8016.80c
+   8016.80c  171194  O16 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)         mat 825      12/13/12
+
+                        tables from file xdata/endf71x/Na/11023.710nc                                    
+
+  11023.80c   45024  Na23 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat1125      12/22/12
+
+                        tables from file xdata/actia                                                     
+
+  12000.62c   44838  12-mg-0 at 293.6K from endf/b-vi.8 njoy99.50                                 mat1200      12/06/01
+  16000.62c   68665  16-s-0 at 293.6K from endf/b-vi.8 njoy99.50                                  mat1600      12/06/01
+  19000.62c   26425  19-k-0 at 293.6K from endf/b-vi.8 njoy99.50                                  mat1900      12/06/01
+ particle-production data for protons   being expunged from  20000.62c
+ particle-production data for deuterons being expunged from  20000.62c
+ particle-production data for tritons   being expunged from  20000.62c
+ particle-production data for alphas    being expunged from  20000.62c
+  20000.62c   66362  20-ca-0 at 293.6K from endf-vi.8 njoy99.50                                   mat2000      12/05/01
+  22000.62c   54128  22-ti-0 at 293.6K from endf/b-vi.8 njoy99.50                                 mat2200      12/06/01
+
+                        tables from file xdata/endf71x/Al/13027.710nc                                    
+
+ particle-production data for protons   being expunged from  13027.80c
+ particle-production data for deuterons being expunged from  13027.80c
+ particle-production data for tritons   being expunged from  13027.80c
+ particle-production data for alphas    being expunged from  13027.80c
+  13027.80c   85936  Al27 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat1325      12/22/12
+
+                        tables from file xdata/endf60                                                    
+
+  14000.60c   51392  14-si-nat from endf/b-vi                                                     mat1400      11/25/93
+
+                        tables from file xdata/rmccsa                                                    
+
+  18000.35c    2182      endl85                                                                   (  18)       11/01/85
+                     temperature = 0.0000E+00 adjusted to 2.5300E-08
+
+                        tables from file xdata/endf70a                                                   
+
+  23000.70c   78193  23-V -  0 at 293.6K from endf/b-vii.0 njoy99.248                             mat2300      08/25/07
+
+                        tables from file xdata/endf71x/Mn/25055.710nc                                    
+
+ particle-production data for protons   being expunged from  25055.80c
+ particle-production data for deuterons being expunged from  25055.80c
+ particle-production data for tritons   being expunged from  25055.80c
+ particle-production data for helions   being expunged from  25055.80c
+ particle-production data for alphas    being expunged from  25055.80c
+  25055.80c  393441  Mn55 ENDF71x (jlconlin)  Ref. see jlconlin (ref 09/10/2012  10:00:53)        mat2525      12/18/12
+                     probability tables used from 1.2500E-01 to 1.0000E+00 mev.
+
+  total     1415148
+ 
+  warning.  neutron energy cutoff is below some cross-section tables.
+ 
+  comment.     1 cross sections modified by free gas thermal treatment.
+
+1particles and energy limits                                                                            print table 101
+
+                         particle      maximum       smallest      largest       always        always
+                         cutoff        particle      table         table         use table     use model
+   particle type         energy        energy        maximum       maximum       below         above
+
+    1  n    neutron     0.0000E+00    1.0000E+36    2.0000E+01    1.5000E+02    1.0000E+36    1.0000E+36
+ 
+
+ ***********************************************************************************************************************
+
+ dump no.    1 on file runtpe     nps =           0     coll =              0     ctm =        0.00   nrn =             
+    0
+
+         3 warning messages so far.
+1     event log for lost particle no.   1          nps =      230251        ijk =      194484275288481
+
+        cell     x         y         z         u         v         w       erg      wgt                          nch nrn
+
+ source   99 -4.510+02  5.000+02  1.500+02  6.229-01  4.611-01 -6.320-01 1.457+00 1.000+00   particle= neutron       4                   
+    sur    1 -4.500+02  5.007+02  1.490+02  6.229-01  4.611-01 -6.320-01 1.457+00 1.000+00   surf=     1.2           5                   
+    sur   99 -4.500+02  5.048+02  1.421+02 -3.779-01 -4.127-02 -9.249-01 1.739-01 9.999-01   surf=     1.2           50                  
+    sur   88 -5.081+02  4.984+02  0.000+00 -3.779-01 -4.127-02 -9.249-01 1.739-01 9.999-01   surf=    88             51                  
+    sur   99 -5.062+02  5.253+02  0.000+00  4.468-01 -5.455-01  7.091-01 1.027-07 4.374-01   surf=    88             1464                
+    sur    1 -4.500+02  4.567+02  8.925+01  4.468-01 -5.455-01  7.091-01 1.027-07 4.374-01   surf=     1.2           1465                
+    sur   99 -4.500+02  4.543+02  9.129+01 -5.495-01  3.659-01 -7.511-01 1.075-08 4.166-01   surf=     1.2           1565                
+    sur   88 -5.168+02  4.987+02  0.000+00 -5.495-01  3.659-01 -7.511-01 1.075-08 4.166-01   surf=    88             1566                
+    sur   99 -5.163+02  4.989+02  0.000+00 -7.067-02  3.836-01  9.208-01 5.259-08 4.109-01   surf=    88             1616                
+    sur    1 -3.136+02  6.319+02  3.000+02 -7.402-01 -4.186-01 -5.262-01 1.014-07 3.293-01   surf=     1.5           1649                
+    sur   99 -3.134+02  6.319+02  3.000+02  9.864-01  5.857-02  1.537-01 1.054-07 3.045-01   surf=     1.5           1665                
+    sur   88  5.209+02  2.784+02  0.000+00 -8.619-02 -6.774-01 -7.306-01 8.126-08 2.785-01   surf=    88             1681                
+    sur   99  5.184+02  2.731+02  0.000+00  1.249-01 -8.048-01  5.803-01 6.087-08 4.218-01   surf=    88             2346                
+    sur   99  5.453+02  1.000+02  1.248+02  1.249-01 -8.048-01  5.803-01 6.087-08 4.218-01   surf=     2.3           2347                
+1   lost particle no. 1     no cell found in subroutine newcel     history no. 230251
+
+ the neutron  currently being tracked has reached surface         2.3; there
+ appears to be no cell on the other side of the surface from cell 99
+ at that point.
+
+ the neutron  is in cell 99.
+
+ x,y,z coordinates:          5.45310E+02    1.00000E+02    1.24816E+02
+ u,v,w direction cosines:    1.24924E-01   -8.04772E-01    5.80290E-01
+ energy = 6.08680E-08    weight = 4.21784E-01    time = 1.03742E+06
+ sqrt(z**2+x**2) = 5.59412E+02
+ the distance to surface         2.3 from the last event is 2.15093E+02
+ the distance to collision from the last event is 4.05175E+02
+ the number of neutron  collisions so far in this history is 142.
+
+ the cells so far found on the other side of surface         2.3 of cell 99
+ (and the surface with respect to which the point x,y,z had the wrong sense) are:
+ (see chapter 5 of the user manual.)
+
+        2             
+
+
+
+
+
+
+1     event log for lost particle no.   2          nps =      262623        ijk =      249528762912497
+
+        cell     x         y         z         u         v         w       erg      wgt                          nch nrn
+
+ source   99 -4.510+02  5.000+02  1.500+02 -9.852-02 -5.162-01  8.508-01 2.204+00 1.000+00   particle= neutron       8                   
+    sur   99  4.944+02  1.000+02  1.653+02  4.986-01 -7.093-01 -4.983-01 1.615+00 8.394-01   surf=     2.3           27                  
+1   lost particle no. 2     no cell found in subroutine newcel     history no. 262623
+
+ the neutron  currently being tracked has reached surface         2.3; there
+ appears to be no cell on the other side of the surface from cell 99
+ at that point.
+
+ the neutron  is in cell 99.
+
+ x,y,z coordinates:          4.94407E+02    1.00000E+02    1.65258E+02
+ u,v,w direction cosines:    4.98591E-01   -7.09291E-01   -4.98311E-01
+ energy = 1.61495E+00    weight = 8.39364E-01    time = 9.58775E+01
+ sqrt(z**2+x**2) = 5.21295E+02
+ the distance to surface         2.3 from the last event is 8.08082E+02
+ the distance to collision from the last event is 2.79976E+03
+ the number of neutron  collisions so far in this history is 2.
+
+ the cells so far found on the other side of surface         2.3 of cell 99
+ (and the surface with respect to which the point x,y,z had the wrong sense) are:
+ (see chapter 5 of the user manual.)
+
+        2             
+
+
+
+
+
+
+1     event log for lost particle no.   3          nps =      324481        ijk =      228095864747161
+
+        cell     x         y         z         u         v         w       erg      wgt                          nch nrn
+
+ source   99 -4.510+02  5.000+02  1.500+02  4.643-01 -4.980-01 -7.324-01 1.528+00 1.000+00   particle= neutron       4                   
+    sur    1 -4.500+02  4.989+02  1.484+02  4.643-01 -4.980-01 -7.324-01 1.528+00 1.000+00   surf=     1.2           5                   
+    sur   99 -4.500+02  4.989+02  1.270+02 -2.005-01 -5.063-01 -8.387-01 1.126-01 9.999-01   surf=     1.2           77                  
+    sur   88 -4.804+02  4.222+02  0.000+00 -2.005-01 -5.063-01 -8.387-01 1.126-01 9.999-01   surf=    88             78                  
+    sur   99 -4.739+02  4.239+02  0.000+00 -1.303-01  3.107-01  9.415-01 7.324-02 9.995-01   surf=    88             114                 
+    sur   99  4.924+02  1.000+02  2.440+02  8.623-01 -4.244-01 -2.762-01 6.057-02 9.995-01   surf=     2.3           122                 
+1   lost particle no. 3     no cell found in subroutine newcel     history no. 324481
+
+ the neutron  currently being tracked has reached surface         2.3; there
+ appears to be no cell on the other side of the surface from cell 99
+ at that point.
+
+ the neutron  is in cell 99.
+
+ x,y,z coordinates:          4.92425E+02    1.00000E+02    2.43979E+02
+ u,v,w direction cosines:    8.62341E-01   -4.24374E-01   -2.76179E-01
+ energy = 6.05659E-02    weight = 9.99490E-01    time = 5.59630E+02
+ sqrt(z**2+x**2) = 5.49553E+02
+ the distance to surface         2.3 from the last event is 1.21357E+03
+ the distance to collision from the last event is 1.34374E+04
+ the number of neutron  collisions so far in this history is 12.
+
+ the cells so far found on the other side of surface         2.3 of cell 99
+ (and the surface with respect to which the point x,y,z had the wrong sense) are:
+ (see chapter 5 of the user manual.)
+
+        2             
+
+
+
+
+
+
+1     event log for lost particle no.   4          nps =      731343        ijk =       86568058892977
+
+        cell     x         y         z         u         v         w       erg      wgt                          nch nrn
+
+ source   99 -4.510+02  5.000+02  1.500+02  8.858-01  4.199-01 -1.978-01 3.702+00 1.000+00   particle= neutron       4                   
+    sur    1 -4.500+02  5.005+02  1.498+02  8.858-01  4.199-01 -1.978-01 3.702+00 1.000+00   surf=     1.2           5                   
+    sur   11 -4.200+02  4.989+02  1.446+02  7.656-01 -2.962-01  5.711-01 1.638-07 8.864-01   surf=    11.2           583                 
+    sur    1 -4.200+02  4.988+02  1.443+02 -4.687-01  4.897-03 -8.833-01 3.109-08 8.812-01   surf=    11.2           606                 
+    sur   99 -4.500+02  4.969+02  1.457+02 -5.247-01 -4.787-01  7.040-01 6.151-08 2.809-01   surf=     1.2           2615                
+    sur   99  5.765+02  1.000+02  6.701+01  1.119-01 -3.372-01 -9.348-01 1.087-07 4.606-01   surf=     2.3           2666                
+1   lost particle no. 4     no cell found in subroutine newcel     history no. 731343
+
+ the neutron  currently being tracked has reached surface         2.3; there
+ appears to be no cell on the other side of the surface from cell 99
+ at that point.
+
+ the neutron  is in cell 99.
+
+ x,y,z coordinates:          5.76456E+02    1.00000E+02    6.70123E+01
+ u,v,w direction cosines:    1.11858E-01   -3.37233E-01   -9.34752E-01
+ energy = 1.08738E-07    weight = 4.60620E-01    time = 6.11265E+05
+ sqrt(z**2+x**2) = 5.80338E+02
+ the distance to surface         2.3 from the last event is 2.40806E+02
+ the distance to collision from the last event is 7.87987E+02
+ the number of neutron  collisions so far in this history is 156.
+
+ the cells so far found on the other side of surface         2.3 of cell 99
+ (and the surface with respect to which the point x,y,z had the wrong sense) are:
+ (see chapter 5 of the user manual.)
+
+        2             
+
+
+
+
+
+
+1     event log for lost particle no.   5          nps =      777379        ijk =      280668359178881
+
+        cell     x         y         z         u         v         w       erg      wgt                          nch nrn
+
+ source   99 -4.510+02  5.000+02  1.500+02  6.437-01 -1.034-01 -7.582-01 2.601+00 1.000+00   particle= neutron       4                   
+    sur    1 -4.500+02  4.998+02  1.488+02  6.437-01 -1.034-01 -7.582-01 2.601+00 1.000+00   surf=     1.2           5                   
+    sur   99 -4.500+02  4.672+02  1.374+02 -7.579-01 -6.312-01  1.650-01 1.202-08 3.990-01   surf=     1.2           4843                
+    sur   99  6.882+02  1.000+02  8.792+01  8.598-01 -1.558-01 -4.862-01 2.941-08 2.772-01   surf=     2.3           4904                
+1   lost particle no. 5     no cell found in subroutine newcel     history no. 777379
+
+ the neutron  currently being tracked has reached surface         2.3; there
+ appears to be no cell on the other side of the surface from cell 99
+ at that point.
+
+ the neutron  is in cell 99.
+
+ x,y,z coordinates:          6.88165E+02    1.00000E+02    8.79154E+01
+ u,v,w direction cosines:    8.59834E-01   -1.55799E-01   -4.86222E-01
+ energy = 2.94090E-08    weight = 2.77216E-01    time = 1.04050E+06
+ sqrt(z**2+x**2) = 6.93758E+02
+ the distance to surface         2.3 from the last event is 1.14973E+03
+ the distance to collision from the last event is 2.21157E+03
+ the number of neutron  collisions so far in this history is 286.
+
+ the cells so far found on the other side of surface         2.3 of cell 99
+ (and the surface with respect to which the point x,y,z had the wrong sense) are:
+ (see chapter 5 of the user manual.)
+
+        2             
+
+
+
+
+
+
