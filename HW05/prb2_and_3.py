@@ -146,7 +146,7 @@ print('Tolerance met at: '+str(tol[-1])+'\n')
 def relError (xOld, xNew):
     #out = np.linalg.norm(xNew-xOld, 1)/np.linalg.norm(xNew, 1)
     out = abs(xNew-xOld)/abs(xNew)
-    return out[0]
+    return max(out)
 	
 errorGiven=[1E-6,1E-8]
 for errStop in errorGiven:	
