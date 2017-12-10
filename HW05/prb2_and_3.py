@@ -85,7 +85,7 @@ def GSI (A,b,x,i):
     xNew=copy(x)
     for j in range(0,i):
         # Last value in the old is the "new" value of the iteration
-        Y += A[i,j]*xNew[j-1]
+        Y += A[i,j]*xNew[j-1]  #!!!!!!Indexing wrong
     for j in range(i+1,n):
         Z += A[i,j]*xOld[j]
     xNew=(X-Y-Z)*c
@@ -118,7 +118,7 @@ def SOR (A,b,x,w,i):
     frontC = (1-w)*xOld[i]
     X = b[i]
     for j in range(0,i):
-        Y += A[i,j]*xNew[j-1]
+        Y += A[i,j]*xNew[j-1]  #!!!!!indexing wrong
     for j in range(i+1,n):
         Z += A[i,j]*xOld[j]
     xNew=(X-Y-Z)*c+frontC
